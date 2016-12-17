@@ -23,15 +23,17 @@ gulp.task('copy', () =>
     .pipe(gulp.dest('dist'))
 );
 
-gulp.task('babel', () => 
-  gulp.src([
+gulp.task('babel', () => {
+  const stream = gulp.src([
     ...paths.js, 
     '!gulpfile.babel.js'
   ])
     .pipe(newer('dist'))
     .pipe(babel())
     .pipe(gulp.dest('dist'))
-);
+
+  return stream;
+});
 
 gulp.task('nodemon', ['copy', 'babel'], () => 
   nodemon({
@@ -41,6 +43,7 @@ gulp.task('nodemon', ['copy', 'babel'], () =>
       'node_modules/**/*.js', 
       'dist/**/*.js', 
     ],
+    tasks: ['babel'],
   })
 );
 
