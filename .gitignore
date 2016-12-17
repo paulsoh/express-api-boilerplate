@@ -1,0 +1,4 @@
+node_modules/
+
+# Babel ES6 compiles files
+dist
